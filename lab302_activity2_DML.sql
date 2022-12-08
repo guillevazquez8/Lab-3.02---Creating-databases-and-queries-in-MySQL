@@ -6,70 +6,70 @@ FROM
 
 -- 4: get the average flight distance -----------------------------------------------------------------------------------------------------------------
 SELECT 
-	AVG(flightMileage) 
+	AVG(flight_mileage) 
 FROM 
 	flights;
 
 -- 5: get the average number of seats ------------------------------------------------------------------------------------------------------------------
 SELECT
-	AVG(aircraftTotalSeats) 
+	AVG(aircraft_total_seats) 
 FROM 
 	aircrafts;
 
 -- 6: get the average number of miles flown by customers grouped by status ----------------------------------------------------------------------------
 SELECT 
-	customerStatus, AVG(customerTotalMileage)
+	customer_status, AVG(customer_total_mileage)
 FROM 
 	customers
-GROUP BY customerStatus;
+GROUP BY customer_status;
 
 -- 7: get the maximum number of miles flown by customers grouped by status ------------------------------------------------------------------------------
 SELECT 
-	customerID, customerName, customerStatus, MAX(customerTotalMileage)
+	customer_id, customer_name, customer_status, MAX(customer_total_mileage)
 FROM 
 	customers
-GROUP BY customerStatus;
+GROUP BY customer_status;
 
 -- 8: get the total number of aircraft with a name containing Boeing --------------------------------------------------------------------------------------
 SELECT 
 	COUNT(*) 
 FROM 
 	aircrafts
-WHERE aircraftModel LIKE 'Boeing%';
+WHERE aircraft_model LIKE 'Boeing%';
 
 -- 9: find all flights with a distance between 300 and 2000 miles ----------------------------------------------------------------------------------------
 SELECT 
-	flightID, flightNumber, flightMileage 
+	flight_id, flight_number, flight_mileage 
 FROM 
 	flights
-WHERE flightMileage BETWEEN 300 AND 2000;
+WHERE flight_mileage BETWEEN 300 AND 2000;
 
 -- 10: find the average flight distance booked grouped by customer status ---------------------------------------------------------------------------------
 SELECT
-	customerStatus, AVG(flightMileage)
+	customer_status, AVG(flight_mileage)
 FROM
-	customerDetails
+	customer_details
 INNER JOIN	
-	flights ON customerDetails.flightID = flights.flightID
+	flights ON customer_details.flight_id = flights.flight_id
 INNER JOIN 
-	customers ON customers.customerID = customerDetails.customerID
-GROUP BY customerStatus;
+	customers ON customers.customer_id = customer_details.customer_id
+GROUP BY customer_status;
 
 -- 11: find the most often booked aircraft by gold status members ----------------------------------------------------------------------------------------
 SELECT
-	customerStatus, aircraftID,
-    COUNT(aircraftID) AS aircraftsBooked
+	customer_status, aircraft_id,
+    COUNT(aircraft_id) AS aircrafts_booked
 FROM 
-	customerDetails
+	customer_details
 INNER JOIN	
-	flights ON customerDetails.flightID = flights.flightID
+	flights ON customer_details.flight_id = flights.flight_id
 INNER JOIN 
-	customers ON customers.customerID = customerDetails.customerID
+	customers ON customers.customer_id = customer_details.customer_id
 WHERE
-	customerStatus = 'Gold'
+	customer_status = 'Gold'
 GROUP BY 
-	aircraftID
+	aircraft_id
 ORDER BY
-	aircraftsBooked DESC LIMIT 1;
+	aircrafts_booked DESC LIMIT 1;
 
 
