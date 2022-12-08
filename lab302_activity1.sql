@@ -18,10 +18,10 @@ USE `mydb` ;
 -- Table `mydb`.`authors`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`authors` (
-  `authorID` INT NOT NULL AUTO_INCREMENT,
-  `authorName` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`authorID`),
-  UNIQUE INDEX `authorID_UNIQUE` (`authorID` ASC) VISIBLE)
+  `author_id` INT NOT NULL AUTO_INCREMENT,
+  `author_name` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`author_id`),
+  UNIQUE INDEX `authorID_UNIQUE` (`author_id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
@@ -29,17 +29,17 @@ ENGINE = InnoDB;
 -- Table `mydb`.`books`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`books` (
-  `bookID` INT NOT NULL AUTO_INCREMENT,
-  `bookTitle` VARCHAR(100) NOT NULL,
-  `authorID` INT NOT NULL,
-  `wordCount` INT NOT NULL,
+  `book_id` INT NOT NULL AUTO_INCREMENT,
+  `book_title` VARCHAR(100) NOT NULL,
+  `author_id` INT NOT NULL,
+  `word_count` INT NOT NULL,
   `views` INT NOT NULL,
-  PRIMARY KEY (`bookID`),
-  INDEX `authorID_idx` (`authorID` ASC) VISIBLE,
-  UNIQUE INDEX `bookID_UNIQUE` (`bookID` ASC) VISIBLE,
+  PRIMARY KEY (`book_id`),
+  INDEX `author_id_idx` (`author_id` ASC) VISIBLE,
+  UNIQUE INDEX `book_id_UNIQUE` (`book_id` ASC) VISIBLE,
   CONSTRAINT `fk_books_authors`
-    FOREIGN KEY (`authorID`)
-    REFERENCES `mydb`.`authors` (`authorID`)
+    FOREIGN KEY (`author_id`)
+    REFERENCES `mydb`.`authors` (`author_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
