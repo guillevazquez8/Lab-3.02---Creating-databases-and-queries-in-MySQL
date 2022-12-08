@@ -21,15 +21,15 @@ USE `lab3.02_activity2` ;
 DROP TABLE IF EXISTS `lab3.02_activity2`.`customers` ;
 
 CREATE TABLE IF NOT EXISTS `lab3.02_activity2`.`customers` (
-  `customerID` INT NOT NULL AUTO_INCREMENT,
-  `customerName` VARCHAR(45) NOT NULL,
-  `customerStatus` VARCHAR(45) NULL DEFAULT 'None',
-  `customerTotalMileage` INT NOT NULL,
-  PRIMARY KEY (`customerID`),
-  UNIQUE INDEX `customerID_UNIQUE` (`customerID` ASC) VISIBLE)
+  `customer_id` INT NOT NULL AUTO_INCREMENT,
+  `customer_name` VARCHAR(45) NOT NULL,
+  `customer_status` VARCHAR(45) NULL DEFAULT 'None',
+  `customer_total_mileage` INT NOT NULL,
+  PRIMARY KEY (`customer_id`),
+  UNIQUE INDEX `customerID_UNIQUE` (`customer_id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-INSERT INTO customers (customerName, customerStatus, customerTotalMileage) VALUES
+INSERT INTO customers (customer_name, customer_status, customer_total_mileage) VALUES
 ('Agustine Riviera', 'Silver', 115235),
 ('Alaina Sepulvida', 'None', 6008),
 ('Tom Jones', 'Gold', 205767),
@@ -45,14 +45,14 @@ INSERT INTO customers (customerName, customerStatus, customerTotalMileage) VALUE
 DROP TABLE IF EXISTS `lab3.02_activity2`.`aircrafts` ;
 
 CREATE TABLE IF NOT EXISTS `lab3.02_activity2`.`aircrafts` (
-  `aircraftID` INT NOT NULL AUTO_INCREMENT,
-  `aircraftModel` VARCHAR(45) NOT NULL,
-  `aircraftTotalSeats` INT NOT NULL,
-  PRIMARY KEY (`aircraftID`),
-  UNIQUE INDEX `aircraftID_UNIQUE` (`aircraftID` ASC) VISIBLE)
+  `aircraft_id` INT NOT NULL AUTO_INCREMENT,
+  `aircraft_model` VARCHAR(45) NOT NULL,
+  `aircraft_total_seats` INT NOT NULL,
+  PRIMARY KEY (`aircraft_id`),
+  UNIQUE INDEX `aircraftID_UNIQUE` (`aircraft_id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
-INSERT INTO aircrafts (aircraftModel, aircraftTotalSeats) VALUES
+INSERT INTO aircrafts (aircraft_model, aircraft_total_seats) VALUES
 ('Boeing 747', 400),
 ('Airbus A330', 236),
 ('Boeing 777', 264);
@@ -63,21 +63,21 @@ INSERT INTO aircrafts (aircraftModel, aircraftTotalSeats) VALUES
 DROP TABLE IF EXISTS `lab3.02_activity2`.`flights` ;
 
 CREATE TABLE IF NOT EXISTS `lab3.02_activity2`.`flights` (
-  `flightID` INT NOT NULL AUTO_INCREMENT,
-  `flightNumber` VARCHAR(45) NOT NULL,
-  `flightMileage` INT NOT NULL,
-  `aircraftID` INT NOT NULL,
-  PRIMARY KEY (`flightID`),
-  UNIQUE INDEX `flightID_UNIQUE` (`flightID` ASC) VISIBLE,
-  INDEX `fk_flight_aircraft_idx` (`aircraftID` ASC) INVISIBLE,
+  `flight_id` INT NOT NULL AUTO_INCREMENT,
+  `flight_number` VARCHAR(45) NOT NULL,
+  `flight_mileage` INT NOT NULL,
+  `aircraft_id` INT NOT NULL,
+  PRIMARY KEY (`flight_id`),
+  UNIQUE INDEX `flightID_UNIQUE` (`flight_id` ASC) VISIBLE,
+  INDEX `fk_flight_aircraft_idx` (`aircraft_id` ASC) INVISIBLE,
   CONSTRAINT `fk_flight_aircraft`
-    FOREIGN KEY (`aircraftID`)
-    REFERENCES `lab3.02_activity2`.`aircrafts` (`aircraftID`)
+    FOREIGN KEY (`aircraft_id`)
+    REFERENCES `lab3.02_activity2`.`aircrafts` (`aircraft_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO flights (flightNumber, flightMileage, aircraftID) VALUES
+INSERT INTO flights (flight_number, flight_mileage, aircraft_id) VALUES
 ('DL143', 135, 1),
 ('DL122', 4370, 2),
 ('DL53', 2078, 3),
@@ -85,31 +85,31 @@ INSERT INTO flights (flightNumber, flightMileage, aircraftID) VALUES
 ('DL37', 531, 1);
 
 -- -----------------------------------------------------
--- Table `lab3.02_activity2`.`customerDetails`
+-- Table `lab3.02_activity2`.`customer_details`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `lab3.02_activity2`.`customerDetails` ;
+DROP TABLE IF EXISTS `lab3.02_activity2`.`customer_details` ;
 
-CREATE TABLE IF NOT EXISTS `lab3.02_activity2`.`customerDetails` (
-  `customerDetailsID` INT NOT NULL AUTO_INCREMENT,
-  `customerID` INT NOT NULL,
-  `flightID` INT NOT NULL,
-  PRIMARY KEY (`customerDetailsID`),
-  UNIQUE INDEX `customerDetailsID_UNIQUE` (`customerDetailsID` ASC) VISIBLE,
-  INDEX `fk_customerDetails_flight_idx` (`flightID` ASC) VISIBLE,
-  INDEX `fk_customerDetails_customer_idx` (`customerID` ASC) VISIBLE,
-  CONSTRAINT `fk_customerDetails_flight`
-    FOREIGN KEY (`flightID`)
-    REFERENCES `lab3.02_activity2`.`flights` (`flightID`)
+CREATE TABLE IF NOT EXISTS `lab3.02_activity2`.`customer_details` (
+  `customer_details_id` INT NOT NULL AUTO_INCREMENT,
+  `customer_id` INT NOT NULL,
+  `flight_id` INT NOT NULL,
+  PRIMARY KEY (`customer_details_id`),
+  UNIQUE INDEX `customer_details_id_UNIQUE` (`customer_details_id` ASC) VISIBLE,
+  INDEX `fk_customer_details_flight_idx` (`flight_id` ASC) VISIBLE,
+  INDEX `fk_customer_details_customer_idx` (`customer_id` ASC) VISIBLE,
+  CONSTRAINT `fk_customer_details_flight`
+    FOREIGN KEY (`flight_id`)
+    REFERENCES `lab3.02_activity2`.`flights` (`flight_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_customerDetails_customer`
-    FOREIGN KEY (`customerID`)
-    REFERENCES `lab3.02_activity2`.`customers` (`customerID`)
+  CONSTRAINT `fk_customer_details_customer`
+    FOREIGN KEY (`customer_id`)
+    REFERENCES `lab3.02_activity2`.`customers` (`customer_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-INSERT INTO customerDetails (customerID, flightID) VALUES
+INSERT INTO customerDetails (customer_id, flight_id) VALUES
 (1, 1),
 (1, 2),
 (1, 1),
