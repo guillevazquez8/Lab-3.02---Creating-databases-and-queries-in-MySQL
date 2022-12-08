@@ -6,4 +6,4 @@
 
 - Activity 2: Normalize a given database of customers, flights and aircrafts
 
-- Activity 3 onwards: to generate queries on activity 2 database we've created
+- Activity 3 onwards: Generate queries on activity 2 database we've created
