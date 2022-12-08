@@ -24,6 +24,10 @@ CREATE TABLE IF NOT EXISTS `mydb`.`authors` (
   UNIQUE INDEX `authorID_UNIQUE` (`author_id` ASC) VISIBLE)
 ENGINE = InnoDB;
 
+INSERT INTO authors (author_name) VALUES
+('Maria Charlotte'),
+('Juan Perez'),
+('Gemma Alcocer');
 
 -- -----------------------------------------------------
 -- Table `mydb`.`books`
@@ -44,6 +48,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`books` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+INSERT INTO books (book_title, author_id, word_count, views) VALUES
+('Best Paint Colors', 1, 814, 14),
+('Small Space Decorating Tips', 2, 1146, 221),
+('Hot Accessories', 1, 986, 105),
+('Mixing Textures', 1, 765, 22),
+('Kitchen Refresh', 2, 1242, 307),
+('Homemade Art Hacks', 1, 1002, 193),
+('Refinishing Wood Floors', 3, 1571, 7542);
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
