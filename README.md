@@ -1,4 +1,4 @@
-# SQL-Lab-3.02
+# Lab 3.02: Creating databases and queries with MySQL
 
 - Activity 1: Normalize a given database of authors and books
 
